@@ -7,19 +7,22 @@ import retrofit2.Callback
 import retrofit2.Response
 
 class RecipeRepository {
-    private val _recipes = MutableLiveData<List<Recipe>>()
-    val recipes: LiveData<List<Recipe>> get() = _recipes
+    private val _recipes = MutableLiveData<List<Meal>>()
+    val recipes: LiveData<List<Meal>> get() = _recipes
 
-    fun fetchRecipes(ingredients: String) {
-        RetrofitInstance.api.getRecipes(ingredients).enqueue(object : Callback<RecipeResponse> {
-            override fun onResponse(call: Call<RecipeResponse>, response: Response<RecipeResponse>) {
+    fun fetchRecipes() {
+        RetrofitInstance.api.getRecipes().enqueue(object : Callback<com.example.recipeapp.Response> {
+            override fun onResponse(
+                call: Call<com.example.recipeapp.Response>,
+                response: Response<com.example.recipeapp.Response>
+            ) {
                 if (response.isSuccessful) {
-                    _recipes.postValue(response.body()?.recipes)
+                    _recipes.postValue(response.body()?.meals)
                 }
             }
 
-            override fun onFailure(call: Call<RecipeResponse>, t: Throwable) {
-                // Handle the error
+            override fun onFailure(call: Call<com.example.recipeapp.Response>, t: Throwable) {
+                TODO("Not yet implemented")
             }
         })
     }

@@ -8,7 +8,7 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 
-class RecipeAdapter(private var recipes: List<Recipe>) : RecyclerView.Adapter<RecipeAdapter.RecipeViewHolder>() {
+class RecipeAdapter(private var recipes: List<Meal>,private var ViewType: Int) : RecyclerView.Adapter<RecipeAdapter.RecipeViewHolder>() {
 
     class RecipeViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val imageView: ImageView = itemView.findViewById(R.id.recipe_image)
@@ -17,22 +17,30 @@ class RecipeAdapter(private var recipes: List<Recipe>) : RecyclerView.Adapter<Re
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecipeViewHolder {
-        val view = LayoutInflater.from(parent.context).inflate(R.layout.item_recipe, parent, false)
-        return RecipeViewHolder(view)
+        if(ViewType==1){
+            val view = LayoutInflater.from(parent.context).inflate(R.layout.item_recipe, parent, false)
+            return RecipeViewHolder(view)
+        }else
+        {
+            val view = LayoutInflater.from(parent.context).inflate(R.layout.item_recipe_recommended, parent, false)
+            return RecipeViewHolder(view)
+        }
+
     }
 
     override fun onBindViewHolder(holder: RecipeViewHolder, position: Int) {
         val recipe = recipes[position]
-        holder.nameView.text = recipe.name
-        Glide.with(holder.itemView.context).load(recipe.imageUrl).into(holder.imageView)
+        holder.nameView.text = recipe.strMeal
+        Glide.with(holder.itemView.context).load(recipe.strImageSource).into(holder.imageView)
 //        holder.animation.setAnimation(R.raw.recipe_animation) // Example animation
 //        holder.animation.playAnimation()
     }
 
     override fun getItemCount() = recipes.size
 
-    fun updateRecipes(newRecipes: List<Recipe>) {
+    fun updateRecipes(newRecipes: List<Meal>,viewType:Int) {
         recipes = newRecipes
+        ViewType=viewType
         notifyDataSetChanged()
     }
 }

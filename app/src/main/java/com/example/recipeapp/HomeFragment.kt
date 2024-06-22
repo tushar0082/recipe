@@ -30,28 +30,24 @@ class HomeFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
 
-        viewModel = ViewModelProvider(this).get(RecipeViewModel::class.java)
+        viewModel = ViewModelProvider(this)[RecipeViewModel::class.java]
 
         val verticalRecyclerView = view.findViewById<RecyclerView>(R.id.vertical_recycler_view)
         verticalRecyclerView.layoutManager = LinearLayoutManager(context)
-        verticalAdapter = RecipeAdapter(emptyList())
+        verticalAdapter = RecipeAdapter(emptyList(),1)
         verticalRecyclerView.adapter = verticalAdapter
 
         val horizontalRecyclerView = view.findViewById<RecyclerView>(R.id.horizontal_recycler_view)
         horizontalRecyclerView.layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
-        horizontalAdapter = RecipeAdapter(emptyList())
+        horizontalAdapter = RecipeAdapter(emptyList(),2)
         horizontalRecyclerView.adapter = horizontalAdapter
 
         viewModel.recipes.observe(viewLifecycleOwner) { recipes ->
-//            verticalAdapter.updateRecipes(recipes)
-//            horizontalAdapter.updateRecipes(recipes)
+            verticalAdapter.updateRecipes(recipes,1)
+            horizontalAdapter.updateRecipes(recipes,2)
         }
 
-        val button=view.findViewById<TextView>(R.id.button)
-
-        button.setOnClickListener{
-            viewModel.getRecipes("chocolate")
-        }
+        viewModel.getRecipes()
 
 
     }
