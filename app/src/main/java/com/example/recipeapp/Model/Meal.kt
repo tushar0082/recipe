@@ -1,4 +1,4 @@
-package com.example.recipeapp
+package com.example.recipeapp.Model
 
 data class Meal(
     val dateModified: Any,
@@ -53,5 +53,5 @@ data class Meal(
     val strMeasure9: String,
     val strSource: String,
     val strTags: String,
-    val strYoutube: String
+    val strYoutube:String,
 )

@@ -8,4 +8,6 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="recommended">Recommended</string>
     <string name="spagheti">Spagheti</string>
+    <string name="today_s_recipe">Today\'s Recipe</string>
+    <string name="materials">Materials</string>
 </resources>

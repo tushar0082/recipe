@@ -1,8 +1,8 @@
-package com.example.recipeapp
+package com.example.recipeapp.Api
 
+import com.example.recipeapp.Model.Response
 import retrofit2.Call
 import retrofit2.http.GET
-import retrofit2.http.Query
 
 interface ApiService {
     @GET("search.php?f=a")
